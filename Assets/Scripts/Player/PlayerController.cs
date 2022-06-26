@@ -22,11 +22,12 @@ namespace RPG.Controller
         // Update is called once per frame
         void Update()
         {
-            InteractWithCombat();
-            InteractwithMovement();
+            if(InteractWithCombat()) return;
+            if(InteractwithMovement()) return;
+            print("Nothing to do.");
         }
 
-        private void InteractWithCombat()
+        private bool InteractWithCombat()
         {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
             foreach (RaycastHit hit in hits)
@@ -38,27 +39,28 @@ namespace RPG.Controller
                 {
                     GetComponent<Fighter>().Attack(target);
                 }
+                return true;
             }
+            return false;
         }
 
-        private void InteractwithMovement()
-        {
-            if (Input.GetMouseButton(0))
-            {
-                MoveToCursor();
-            }
-        }
-
-        private void MoveToCursor()
+        private bool InteractwithMovement()
         {
             RaycastHit hit;
             bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
             if (hasHit)
             {
-                GetComponent<Movement>().MoveTo(hit.point);
 
+                if (Input.GetMouseButtonDown(0))
+                {
+                    GetComponent<Movement>().StartMoveAction(hit.point);
+                }
+                return true;
             }
+            return false;
         }
+
+       
 
         private static Ray GetMouseRay()
         {

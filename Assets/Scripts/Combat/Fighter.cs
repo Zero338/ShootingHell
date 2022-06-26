@@ -1,14 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Move;
 
 namespace RPG.Combat
 {
     public class Fighter:MonoBehaviour
     {
-        public void Attack(CombatTarget target)
+        [SerializeField]
+        float weaponRange = 2f;
+
+        Transform target;
+        private void Update()
         {
-            print("You Shall Not Pass!");
+            if (target == null) return;
+            if (!GetIsInRange())
+            {
+                GetComponent<Movement>().MoveTo(target.position);
+            }
+            else
+            {
+                GetComponent<Movement>().Stop();
+            }
         }
+
+        private bool GetIsInRange()
+        {
+            return Vector3.Distance(transform.position, target.position) < weaponRange;
+        }
+
+        public void Attack(CombatTarget combatTarget)
+        {
+            target = combatTarget.transform;
+        }
+        public void Cancel()
+        {
+            target = null;
+        }
+
     }
 }
