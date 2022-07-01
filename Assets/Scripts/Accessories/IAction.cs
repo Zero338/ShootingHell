@@ -1,18 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class IAction : MonoBehaviour
+namespace RPG.Core
 {
-    // Start is called before the first frame update
-    void Start()
+    public interface IAction
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void Cancel();
     }
 }
