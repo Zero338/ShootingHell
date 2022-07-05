@@ -9,14 +9,17 @@ using RPG.Combat;
 
 namespace RPG.Controller
 {
+    
     public class PlayerController : MonoBehaviour
     {
+        
 
+       
 
         // Start is called before the first frame update
         void Start()
         {
-
+           
         }
 
         // Update is called once per frame
@@ -38,6 +41,8 @@ namespace RPG.Controller
                 if(Input.GetMouseButtonDown(0))
                 {
                     GetComponent<Fighter>().Attack(target);
+                    
+                    
                 }
                 return true;
             }
